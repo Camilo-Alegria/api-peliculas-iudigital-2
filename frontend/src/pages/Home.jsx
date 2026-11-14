@@ -40,17 +40,38 @@ function Home() {
         </div>
       ) : (
         peliculas.map((peli) => (
-          <div key={peli._id} className="relative rounded-xl overflow-hidden border border-slate-800/80 bg-[#121721] hover:border-cyan-500/50 transition">
-            <img
-              src={peli.imagen || peli.foto}
-              alt={peli.titulo}
-              className="w-full h-64 object-cover"
-            />
+          <a
+            key={peli._id}
+            href={peli.url || '#'}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => {
+              if (!peli.url) {
+                e.preventDefault();
+                alert(`La película "${peli.titulo}" aún no tiene una URL de tráiler registrada.`);
+              }
+            }}
+            className="group block relative rounded-xl overflow-hidden border border-slate-800/80 bg-[#121721] hover:border-cyan-500/70 transition cursor-pointer"
+          >
+            <div className="overflow-hidden">
+              <img
+                src={peli.imagen || peli.foto}
+                alt={peli.titulo}
+                className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
             <div className="p-4">
-              <h3 className="text-xl font-bold text-white">{peli.titulo}</h3>
+              <div className="flex items-center justify-between gap-2">
+                <h3 className="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">
+                  {peli.titulo}
+                </h3>
+                <span className="text-xs font-medium text-cyan-400 opacity-80 group-hover:opacity-100 shrink-0">
+                  Ver tráiler ↗
+                </span>
+              </div>
               <p className="text-slate-400 text-sm mt-1 line-clamp-2">{peli.sinopsis}</p>
             </div>
-          </div>
+          </a>
         ))
       )}
     </div>
