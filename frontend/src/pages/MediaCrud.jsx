@@ -159,11 +159,11 @@ export default function MediaCrud() {
     const tipo = match[1];
     const id = match[2];
 
-    const token = import.meta.env.VITE_TMDB_TOKEN;
+    const token = import.meta.env.VITE_TMDB_TOKEN || "aafc2a867c20da28d50be140664763ff";
     if (!token) {
       setErrorTmdb('No se encontró la credencial VITE_TMDB_TOKEN en frontend/.env.');
       return;
-    }
+}
 
     setCargandoTmdb(true);
     try {
